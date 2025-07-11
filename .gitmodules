@@ -1,0 +1,18 @@
+[submodule "lib/forge-std"]
+	path = lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "Smart_contract_raffle24/lib/chainlink-brownie-contracts"]
+	path = Smart_contract_raffle24/lib/chainlink-brownie-contracts
+	url = https://github.com/smartcontractkit/chainlink-brownie-contracts
+[submodule "lib/chainlink-brownie-contracts"]
+	path = lib/chainlink-brownie-contracts
+	url = https://github.com/smartcontractkit/chainlink-brownie-contracts
+[submodule "foundry-get-age/lib/forge-std"]
+	path = foundry-get-age/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "baseSnName/lib/forge-std"]
+	path = baseSnName/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "OnchainVoting/lib/forge-std"]
+	path = OnchainVoting/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
