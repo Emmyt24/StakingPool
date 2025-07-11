@@ -6,7 +6,6 @@ contract VotingSystem {
     error Voting__AlreadyVoted();
     error Voting__VotingNotStarted();
     error Voting__IdAlreadyTaken();
-
     enum VotingState {
         START,
         STOP
