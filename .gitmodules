@@ -16,3 +16,6 @@
 [submodule "OnchainVoting/lib/forge-std"]
 	path = OnchainVoting/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "stakingPool/lib/forge-std"]
+	path = stakingPool/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
