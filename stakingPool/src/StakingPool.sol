@@ -57,7 +57,7 @@ contract StakingPool {
         durationToAPY[365 * DAYS] = 2000; // 1 year = 20% APY
     }
 
-    // function to stake
+    // function to stake your coin
     function stake(
         uint256 _amountToStake,
         uint256 _stakingDuration
@@ -114,7 +114,7 @@ contract StakingPool {
         emit userHasStaked(msg.sender, _amountToStake, _stakingDuration);
     }
 
-    //withdrawal function
+    //withdrawal function your stake
     function withdraw(uint256 _amount) public {
         require(msg.sender.balance > 0);
         Staker_Data storage user = stakers[msg.sender];
