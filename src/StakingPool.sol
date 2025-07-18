@@ -158,7 +158,7 @@ contract StakingPool {
             //revert
         }
     }
-
+    // to view all stakersss
     //to view stakers detail
     function viewStakingDetail(
         address _staker
@@ -176,7 +176,6 @@ contract StakingPool {
     function activeStaker(uint256 index) public view returns (address) {
         return listOfStakers[index];
     }
-    
 
     modifier onlyOwner() {
         if (msg.sender != owner) {
