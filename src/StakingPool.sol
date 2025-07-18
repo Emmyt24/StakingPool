@@ -158,7 +158,6 @@ contract StakingPool {
             //revert
         }
     }
-    // to view all stakersss
     //to view stakers detail
     function viewStakingDetail(
         address _staker
