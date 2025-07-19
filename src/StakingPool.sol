@@ -176,6 +176,10 @@ contract StakingPool {
         return listOfStakers[index];
     }
 
+    function Owner() public view returns (address) {
+        return owner;
+    }
+
     modifier onlyOwner() {
         if (msg.sender != owner) {
             revert Staking__OnlyOwnerCanCall();

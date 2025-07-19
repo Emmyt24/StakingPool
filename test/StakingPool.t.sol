@@ -10,6 +10,12 @@ import {HelperConfig} from "../script/helperConfig.s.sol";
 contract StakingPoolTest is Test {
     StakingPool stakingPool;
 
+    event userHasStaked(
+        address indexed user,
+        uint256 indexed amount,
+        uint256 indexed timeStamp
+    );
+
     uint256 constant AMOUNT_FUND = 10e18;
     address USER = makeAddr("paps");
     uint256 constant STARTING_BALANCE = 10 ether;
@@ -104,5 +110,36 @@ contract StakingPoolTest is Test {
         vm.prank(USER);
         vm.expectRevert();
         stakingPool.withdrawProfit();
+    }
+
+    function testRevertUserTryWithdrawalMoreThanStake() public {
+        vm.deal(USER, AMOUNT_FUND * 2);
+        vm.prank(USER);
+        stakingPool.stake{value: AMOUNT_FUND}(AMOUNT_FUND, 1);
+
+        vm.warp(block.timestamp + 8 days);
+        vm.roll(block.number + 1);
+
+        vm.prank(USER);
+        vm.expectRevert();
+        stakingPool.withdraw(AMOUNT_FUND + 1 ether);
+    }
+
+    function testEventGeteEmittedAfterStake() public {
+        vm.expectEmit(true, true, true, false, address(stakingPool));
+        emit userHasStaked(USER, AMOUNT_FUND, block.timestamp);
+        vm.prank(USER);
+        vm.deal(USER, AMOUNT_FUND * 2);
+        stakingPool.stake{value: AMOUNT_FUND}(AMOUNT_FUND, 1);
+    }
+
+    function testOwnerCanCallWithrawProfit() public {
+        vm.deal(address(stakingPool), AMOUNT_FUND * 2);
+        uint256 contractBalanceBefore = address(stakingPool).balance;
+        vm.prank(stakingPool.Owner());
+        stakingPool.withdrawProfit();
+        uint256 contractBalanceAfter = address(stakingPool).balance;
+        assertEq(contractBalanceAfter, 0);
+        assertEq(contractBalanceBefore, AMOUNT_FUND * 2);
     }
 }
