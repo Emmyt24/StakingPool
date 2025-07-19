@@ -15,6 +15,7 @@ contract StakingPoolTest is Test {
         uint256 indexed amount,
         uint256 indexed timeStamp
     );
+    event userHasWithdraw(address indexed user, uint256 indexed amount);
 
     uint256 constant AMOUNT_FUND = 10e18;
     address USER = makeAddr("paps");
@@ -131,6 +132,20 @@ contract StakingPoolTest is Test {
         vm.prank(USER);
         vm.deal(USER, AMOUNT_FUND * 2);
         stakingPool.stake{value: AMOUNT_FUND}(AMOUNT_FUND, 1);
+    }
+
+    function testEventGeteEmittedAfterWithdrawal() public {
+        vm.deal(USER, AMOUNT_FUND * 2);
+        vm.prank(USER);
+        vm.deal(address(stakingPool), 1 ether); // fund the contract with extra ether for reward
+        stakingPool.stake{value: AMOUNT_FUND}(AMOUNT_FUND, 1);
+        vm.warp(block.timestamp + 8 days);
+        vm.roll(block.number + 1);
+
+        vm.expectEmit(true, true, false, false, address(stakingPool));
+        emit userHasWithdraw(USER, AMOUNT_FUND);
+        vm.prank(USER);
+        stakingPool.withdraw(AMOUNT_FUND);
     }
 
     function testOwnerCanCallWithrawProfit() public {
